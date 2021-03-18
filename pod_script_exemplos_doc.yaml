@@ -1,0 +1,92 @@
+# https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+
+apiVersion: v1 # versão da api a ser criada os pods
+kind: Pod # tipo que irei criar
+metadata: # nome do meu script
+  name: meu-pod-declarativo
+  labels: {}
+  annotations: {}
+spec: # especificação do pod
+  containers:
+    - name: didox-p1 #nome e descrição dos pod
+      image: nginx:latest
+      env:
+      - name: VARIAVEL1
+        value: "Opaaa variavel 1"
+      lifecycle:
+        postStart:
+          exec:
+            command: ["/bin/sh", "-c", "echo 'teste danilo'"]
+
+      # definição de porta por container
+      # ports:
+      #   - containerPort: 3000
+      # env: # variavel de ambiente
+      # - name: NGINX_PORT
+      #   value: 8081 # definindo porta app
+
+      # Criando variavel de ambiente
+      # env:
+      # - name: VARIAVEL1
+      #   value: "Opaaa variavel 1"
+      # - name: VARIAVEL2
+      #   value: "Opaaa variavel 2"
+
+
+
+# para aplicar o script pod
+# $ kubectl apply -f pod_script_nodejs.yaml
+# $ kubectl get pods --watch # para acompanhar a criação
+# $ kubectl get pods -o wide # descreve os pods com seus IPS
+# $ kubectl describe pods node-app-pod # para acompanhar a criação
+# $ kubectl delete pods node-app-pod # apaga o pod criado
+# $ kubectl exec node-app-pod -- printenv #mostra variáveis de ambiente pods
+# $ kubectl get -f pod_script_nodejs.yaml # mostrar pod criado pelo arquivo
+# $ kubectl describe -f pod_script_nodejs.yaml # mostrar decrição pod criado pelo arquivo
+# $ kubectl delete -f pod_script_nodejs.yaml # delete pod by file
+# $ kubectl exec -it  -f pod_script_nodejs.yaml -- bash # delete pod by file
+# $ kubectl get pods --all-namespaces -o wide  # listar todos os pods
+# o ip que mostra do pod é um IP interno de cominucação entre os pods, para liberar um IP externo precisa instalar um recurso
+# para controlar os pods em um IP FIXO utilizar o SVC, faz a comunicação entre os pods, preve DNS para os pods, faz o balanceamento de entre os pods
+# o SVC tem os serviços
+# - ClusterIP
+# - NodePort
+# - LoadBalancer
+
+# NodePort  = Permite que vc acesse um IP na porta dentro do pod
+# $ kubectl get node -o wide - para descobrir o IP externo do meu NodePort
+
+
+# ao acessar o nginx vc pode alterar o HTML dele neste local
+# $ cat /etc/nginx/conf.d/default.conf
+# $ cat /usr/share/nginx/html/index.html
+# https://medium.com/@renatolipi/servindo-p%C3%A1gina-est%C3%A1tica-com-nginx-no-ubuntu-d4d965165caa
+
+
+# LoadBalancer - Aplicar o servico do kubernets com o nodePort em algum serviço na nuvem
+# ao testar o loadbalancer-svc-pod-1.yaml veremos que ele fica pendente pois não está em uma maquina na nuvem
+# $ kubectl get services -o wide
+# NAME                     TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE    SELECTOR
+# cluster-ip-svc-pod-2     ClusterIP      10.103.224.220   <none>        9000/TCP       17m    app=label-pod-2
+# kubernetes               ClusterIP      10.96.0.1        <none>        443/TCP        24m    <none>
+# loadbalancer-svc-pod-1   LoadBalancer   10.97.53.239     <pending>     80:31580/TCP   101s   app=label-pod-1
+# node-port-svc-pod-1      NodePort       10.97.175.226    <none>        80:30050/TCP   17m    app=label-pod-1
+
+
+# no docker
+# docker exec
+
+
+
+
+
+
+
+
+NAME    READY   STATUS    RESTARTS   AGE     IP           NODE       NOMINATED NODE   READINESS GATES
+pod-1   1/1     Running   0          5m43s   172.17.0.3   minikube   <none>           <none>
+pod-2   1/1     Running   0          15s     172.17.0.4   minikube   <none>           <none>
+
+NAME                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE     SELECTOR
+cluster-ip-svc-pod-2   ClusterIP   10.104.200.47   <none>        9000/TCP   10s     app=label-pod-2
+kubernetes             ClusterIP   10.96.0.1       <none>        443/TCP    2d22h   <none>

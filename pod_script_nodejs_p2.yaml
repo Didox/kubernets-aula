@@ -1,0 +1,16 @@
+apiVersion: v1 # versão da api a ser criada os pods
+kind: Pod # tipo que irei criar
+metadata: # nome do meu script
+  name: node-app-v2
+  labels:
+    app: node-app-v2
+spec: # especificação do pod
+  containers:
+    - name: app-nodejs-v2 #nome e descrição dos pod
+      image: nginx:latest
+      # image: nodejs-image
+      env:
+      - name: VARIAVEL1
+        value: "Opaaa variavel 1"
+      ports:
+        - containerPort: 80 #defini qual a porta do container dentro do POD

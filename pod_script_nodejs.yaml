@@ -1,0 +1,36 @@
+# https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+# https://levelup.gitconnected.com/deploying-a-complete-node-js-application-in-kubernetes-90222481561f
+# https://medium.com/swlh/how-to-run-locally-built-docker-images-in-kubernetes-b28fbc32cc1d
+
+apiVersion: v1 # versão da api a ser criada os pods
+kind: Pod # tipo que irei criar
+metadata: # nome do meu script
+  name: node-app-pod
+  labels:
+    app: node-app
+spec: # especificação do pod
+  containers:
+    - name: app-nodejs #nome e descrição dos pod
+      image: nginx:latest
+      # image: nodejs-image
+      env:
+      - name: VARIAVEL1
+        value: "Opaaa variavel 1"
+      ports:
+        - containerPort: 80 #defini qual a porta do container dentro do POD
+
+      # definição de porta por container
+      # ports:
+      #   - containerPort: 3000
+      # env: # variavel de ambiente
+      # - name: NGINX_PORT
+      #   value: 8081 # definindo porta app
+
+      # Criando variavel de ambiente
+      # env:
+      # - name: VARIAVEL1
+      #   value: "Opaaa variavel 1"
+      # - name: VARIAVEL2
+      #   value: "Opaaa variavel 2"
+
+
