@@ -10,6 +10,7 @@ CMD ["node", "app.js"]
 docker build -t nodejs-image -f Dockerfile .
 docker run -d -p 3000:3000 --name nodejs-image nodejs-image
 docker ps
+
 docker start nodejs-image
 
 docker rm nodejs-image

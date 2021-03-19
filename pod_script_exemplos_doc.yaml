@@ -35,11 +35,15 @@ spec: # especificação do pod
 
 
 # para aplicar o script pod
+# $ minikube start
+# $ minikube start --driver=virtualbox
 # $ kubectl apply -f pod_script_nodejs.yaml
 # $ kubectl get pods --watch # para acompanhar a criação
 # $ kubectl get pods -o wide # descreve os pods com seus IPS
 # $ kubectl describe pods node-app-pod # para acompanhar a criação
 # $ kubectl delete pods node-app-pod # apaga o pod criado
+# $ kubectl delete pods --all # apaga todos os pods criados
+# $ kubectl delete services --all # apaga todos os services criados
 # $ kubectl exec node-app-pod -- printenv #mostra variáveis de ambiente pods
 # $ kubectl get -f pod_script_nodejs.yaml # mostrar pod criado pelo arquivo
 # $ kubectl describe -f pod_script_nodejs.yaml # mostrar decrição pod criado pelo arquivo
@@ -48,10 +52,13 @@ spec: # especificação do pod
 # $ kubectl get pods --all-namespaces -o wide  # listar todos os pods
 # o ip que mostra do pod é um IP interno de cominucação entre os pods, para liberar um IP externo precisa instalar um recurso
 # para controlar os pods em um IP FIXO utilizar o SVC, faz a comunicação entre os pods, preve DNS para os pods, faz o balanceamento de entre os pods
+
 # o SVC tem os serviços
-# - ClusterIP
-# - NodePort
-# - LoadBalancer
+# - ClusterIP # somente para acesso interno a rede cluster
+# - NodePort # somente para acesso externo do rede cluster
+# - LoadBalancer # para aplicação em um servidor que gera o IP final
+
+# - ReplicaSet # Caso o pod tenha encerrado ele recria
 
 # NodePort  = Permite que vc acesse um IP na porta dentro do pod
 # $ kubectl get node -o wide - para descobrir o IP externo do meu NodePort
@@ -63,9 +70,14 @@ spec: # especificação do pod
 # https://medium.com/@renatolipi/servindo-p%C3%A1gina-est%C3%A1tica-com-nginx-no-ubuntu-d4d965165caa
 
 
+# mysql docker hub
+# https://hub.docker.com/_/mysql/
+# https://hub.docker.com/r/mysql/mysql-server/
+
 # LoadBalancer - Aplicar o servico do kubernets com o nodePort em algum serviço na nuvem
 # ao testar o loadbalancer-svc-pod-1.yaml veremos que ele fica pendente pois não está em uma maquina na nuvem
 # $ kubectl get services -o wide
+
 # NAME                     TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE    SELECTOR
 # cluster-ip-svc-pod-2     ClusterIP      10.103.224.220   <none>        9000/TCP       17m    app=label-pod-2
 # kubernetes               ClusterIP      10.96.0.1        <none>        443/TCP        24m    <none>

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: site-replicaset
+spec:
+  template:
+    metadata:
+      name: podsite-1
+      labels:
+        app: label-podsite-1
+    spec:
+      containers:
+        - name: container-podsite-1
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+          envFrom:
+          - configMapRef:
+              name: site-configmap
+  replicas: 3
+  selector:
+    matchLabels:
+      app: label-podsite-1
+
+# $ kubectl get replicaset
+# $ kubectl describe replicaset site-replicaset

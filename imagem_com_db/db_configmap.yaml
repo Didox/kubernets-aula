@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-configmap
+data:
+  MYSQL_ROOT_PASSWORD: danilotestekub
+  MYSQL_DATABASE: validador_cpf
+  MYSQL_PASSWORD: danilotestekub
+
+# $ kubectl get configmap
+# $ kubectl describe configmap db-configmap
