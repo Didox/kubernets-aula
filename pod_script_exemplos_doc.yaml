@@ -64,6 +64,28 @@ spec: # especificação do pod
 # $ kubectl get node -o wide - para descobrir o IP externo do meu NodePort
 
 
+# minikube ssh # acessar minikube interno
+# docker images # ver imagens minikube interno
+
+
+#https://stackoverflow.com/questions/42564058/how-to-use-local-docker-images-with-minikube
+# Suportamente expoe imagem local docker com kubernetes
+# # Start minikube
+# minikube start
+
+# # Set docker env
+# eval $(minikube docker-env)             # unix shells
+# minikube docker-env | Invoke-Expression # PowerShell
+
+# # Build image
+# docker build -t dotnet-image .
+
+# # Run in minikube
+# kubectl run dotnet-image-pod --image=dotnet-image --image-pull-policy=Never
+
+# # Check that it's running
+# kubectl get pods
+
 # ao acessar o nginx vc pode alterar o HTML dele neste local
 # $ cat /etc/nginx/conf.d/default.conf
 # $ cat /usr/share/nginx/html/index.html
