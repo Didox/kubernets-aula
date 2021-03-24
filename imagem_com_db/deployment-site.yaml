@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: site-deployment
+spec:
+  template:
+    metadata:
+      name: podsite-1
+      labels:
+        app: label-podsite-1
+    spec:
+      containers:
+        - name: container-podsite-1
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+          envFrom:
+          - configMapRef:
+              name: site-configmap
+  replicas: 3
+  selector:
+    matchLabels:
+      app: label-podsite-1
+
+# $ kubectl apply -f deployment-site.yaml
+# $ kubectl delete -f deployment-site.yaml
+# $ kubectl get deployment
+# $ kubectl describe deployment site-deployment
+# $ kubectl rollout history deployment site-deployment
+# $ kubectl annotate deployment.v1.apps/site-deployment kubernetes.io/change-cause="teste de comentário"
+# $ kubectl rollout undo deployment.v1.apps/site-deployment --to-revision=2
+# $ kubectl get rs
+# $ kubectl get rs -w
+# $ kubectl get pods -o wide
+# $ kubectl scale deployment.v1.apps/site-deployment --replicas=2
+# $ kubectl autoscale deployment.v1.apps/site-deployment --min=5 --max=8 --cpu-percent=80
+# $ kubectl get hpa # mostra status autoscale
+# $ kubectl delete hpa site-deployment
+# $ kubectl delete horizontalpodautoscaler --all
+# $ kubectl set image deployment.v1.apps/site-deployment nginx=nginx:latest
+# $ kubectl run didox-nginx-memoria --image=nginx --requests=cpu=500m,memory=500M --expose --port=80
+# $ kubectl autoscale deployment didox-nginx-memoria --cpu-percent=50 --min=1 --max=10
+
+# autoscale yml
+# https://cloud.google.com/kubernetes-engine/docs/how-to/horizontal-pod-autoscaling?hl=pt-br

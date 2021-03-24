@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeport-svc-pod-java
+spec:
+  type: NodePort
+  ports:
+    - port: 8081
+      #targetPort: 80
+      nodePort: 30002 # até 32767
+  selector:
+    app: label-pod-java
+
+# $ kubectl apply -f node-port-svc-pod-java.yaml
+# $ kubectl describe -f node-port-svc-pod-java.yaml
+# $ kubectl delete -f node-port-svc-pod-java.yaml
+
+# para pegar o IP interno para acessar
+# $ kubectl get nodes -o wide 
+# INTERNAL-IP 

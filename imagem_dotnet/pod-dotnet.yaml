@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-dotnet
+  labels:
+    app: label-pod-dotnet
+spec:
+  containers:
+    - name: container-pod-dotnet
+      image: didox/dotnet-image:latest
+      ports:
+        - containerPort: 80
+
+
+# $ kubectl apply -f pod-dotnet.yaml 
+# $ kubectl describe -f pod-dotnet.yaml 
+# $ kubectl delete -f pod-dotnet.yaml 

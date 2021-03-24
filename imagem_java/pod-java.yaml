@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-java
+  labels:
+    app: label-pod-java
+spec:
+  containers:
+    - name: container-pod-java
+      image: didox/app-cpf-spring:latest
+      ports:
+        - containerPort: 8081
+
+
+# $ kubectl apply -f pod-java.yaml 
+# $ kubectl describe -f pod-java.yaml 
+# $ kubectl delete -f pod-java.yaml 
